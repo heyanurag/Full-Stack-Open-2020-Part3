@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf build && cd E:/Coding/WebDev/Full-Stack-Open-2020/Part2/phonebook && npm run build --prod",
     "copy:ui": "xcopy /S /I /E \"E:/Coding/WebDev/Full-Stack-Open-2020/Part2/phonebook/build\" \"E:/Coding/WebDev/Full-Stack-Open-2020-Part3/build\"",
-    "deploy": "git push heroku master"
+    "deploy": "git push heroku master",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git"
@@ -29,6 +30,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^7.10.0",
     "nodemon": "^2.0.4"
   }
 }

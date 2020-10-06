@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
 
 if(process.argv.length < 3) {
-    console.log("Enter password as argument: node mongo.js <password>")
-    process.exit(1);
+    console.log('Enter password as argument: node mongo.js <password>')
+    process.exit(1)
 }
 
 const password = process.argv[2]
 
-const URL = `mongodb+srv://fullstack:password@cluster0.8fr94.mongodb.net/phonebook-app?retryWrites=true&w=majority`
+const URL = `mongodb+srv://fullstack:${password}@cluster0.8fr94.mongodb.net/phonebook-app?retryWrites=true&w=majority`
 
 mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
@@ -33,8 +33,8 @@ if(process.argv.length === 5) {
     const number = process.argv[4]
 
     const person = new Person({
-        name: name,  
-        number: number  
+        name: name,
+        number: number
     })
 
     person.save().then(result => {

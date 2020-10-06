@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
@@ -15,7 +16,7 @@ const logger = morgan((tokens, req, res) => {
         tokens.res(req, res, 'content-length'), '-',
         tokens['response-time'](req, res), 'ms',
         tokens['body'](req, res)
-      ].join(' ')
+    ].join(' ')
 })
 
 app.use(express.static('build'))
@@ -26,23 +27,23 @@ app.use(logger)
 let persons = [
     {
         id: 1,
-        name: "Arto Hellas",
-        number: "040-123456"
+        name: 'Arto Hellas',
+        number: '040-123456'
     },
     {
         id: 2,
-        name: "Ada Lovelace",
-        number: "39-44-5323523"
+        name: 'Ada Lovelace',
+        number: '39-44-5323523'
     },
     {
         id: 3,
-        name: "Dan Abramov",
-        number: "12-43-234345"
+        name: 'Dan Abramov',
+        number: '12-43-234345'
     },
     {
         id: 4,
-        name: "Mary Poppendick",
-        number: "39-23-6423122"
+        name: 'Mary Poppendick',
+        number: '39-23-6423122'
     }
 ]
 
@@ -80,11 +81,11 @@ app.delete('/api/persons/:id', (req, res, next) => {
             res.status(204).end()
         })
         .catch(error => next(error))
-    
+
 })
 
 const generateID = () => {
-    const maxID = persons.length > 0 
+    const maxID = persons.length > 0
         ? Math.floor(Math.random()*(persons.length*500))
         : 0
     return maxID + 1
@@ -93,24 +94,24 @@ const generateID = () => {
 const checkName = (name) => {
     const names = persons.map(p => p.name)
     if(names.includes(name)) {
-        return true;
+        return true
     }
-    return false;
+    return false
 }
 
 app.post('/api/persons', (req, res, next) => {
     const body = req.body
-    
+
     /*if(!body.name) {
         return res.status(400).json({          // "return" is important here!!!
             error: 'name is missing!!'
-        })  
-    } 
+        })
+    }
 
     if(!body.number) {
         return res.status(400).json({          // "return" is important here!!!
             error: 'number is missing!!'
-        })  
+        })
     }*/
 
     const person = new Person({
@@ -124,7 +125,7 @@ app.post('/api/persons', (req, res, next) => {
             res.json(savedPerson)
         })
         .catch(error => next(error))
-    
+
 })
 
 app.put('/api/persons/:id', (req, res, next) => {
@@ -134,9 +135,9 @@ app.put('/api/persons/:id', (req, res, next) => {
         name: body.name,
         number: body.number
     }
-    
+
     Person
-        .findByIdAndUpdate(req.params.id, person, {new: true})
+        .findByIdAndUpdate(req.params.id, person, { new: true })
         .then(updatedPerson => {
             res.json(updatedPerson)
         })
@@ -150,9 +151,9 @@ const errorHandler = (error, req, res, next) => {
         return res.status(400).send({ error: 'malformatted id' })
     }
     if (error.name === 'ValidationError') {
-        return res.status(400).json({errorMessage: error.message})
+        return res.status(400).json({ errorMessage: error.message })
     }
-    
+
     next(error)
 }
 
